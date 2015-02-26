@@ -8,18 +8,18 @@
 
 ###
 #INIT
-scriptpath=~/
+scriptpath=${HOME}
 scriptname=daylight-wallpaper-updater.sh
 
 # Auto-detect the line numbers of FILE_BEGIN and FILE_END.
 FILE_BEGIN=$(grep -n -m 12 "#!/bin/bash" "$0"| tail -1 | awk -F: '{print $1}')
 FILE_END=$(grep -n -m 12 "gsettings set" "$0"| tail -1 | awk -F: '{print $1}')
 # credits to http://stackoverflow.com/a/12451684/20571
-echo "Creating runtime script $scriptpath$scriptname . . ."
-< "$0" head -n $FILE_END | tail -n +$FILE_BEGIN > "$scriptpath$scriptname"
+echo "Creating runtime script $scriptpath/$scriptname . . ."
+< "$0" head -n $FILE_END | tail -n +$FILE_BEGIN > "$scriptpath/$scriptname"
 # credits to http://unix.stackexchange.com/a/47414
 # Make it executable:
-chmod +x $scriptpath$scriptname
+chmod +x $scriptpath/$scriptname
 
 ###
 # Put the script into current user's crontab:
@@ -31,7 +31,7 @@ if [[ "already" -eq "" ]]; then
 	echo "Adding runtime script '$scriptname' to crontab . . ."
 	(crontab -l 2>/dev/null; echo "") | crontab -
 	(crontab -l 2>/dev/null; echo "# set world map as desktop background:") | crontab -
-	(crontab -l 2>/dev/null; echo "*/15 * * * * ~/update-wallpaper.sh") | crontab -
+	(crontab -l 2>/dev/null; echo "*/15 * * * * $scriptpath/$scriptname > daylight-wallpaper.log && date >> daylight-wallpaper.log") | crontab -
 else
 	echo "Runtime script already exists in crontab! crontab not changed."
 fi
@@ -39,7 +39,7 @@ fi
 ###
 # Let's use our new script right away!
 echo "Setting new wallpaper . . ."
-$scriptpath$scriptname
+$scriptpath/$scriptname
   
 ###
 # Stop installation script here; the rest is used to create the runtime script.
@@ -55,17 +55,17 @@ exit
 # License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
 
 # set variables:
-wallpaper_path=~/
+wallpaper_path=${HOME}
 wallpaper_name=world_sunlight_map.jpg
 wallpaper_wget_url=http://www.opentopia.com/images/data/sunlight/world_sunlight_map_rectangular.jpg
+wget_options="--no-cache -N -q" # ‐‐execute robots=off ‐‐user-agent=Mozilla 
 
 # get the file:
 cd $wallpaper_path
-#date > $wallpaper_path$wallpaperlog
-#rm $wallpaper_path$wallpaper_name # I ought to find the wget switch that allows overwriting of the existing file.
-wget -q -N ‐‐execute robots=off ‐‐user-agent=Mozilla -O $wallpaper_name $wallpaper_wget_url 
-
+#date > $wallpaper_path/$wallpaperlog
+rm $wallpaper_path/$wallpaper_name # I ought to find the wget switch that allows overwriting of the existing file.
+wget $wget_options -O $wallpaper_name $wallpaper_wget_url 
 # set file as wallpaper:
 export DISPLAY=:0        # we must target the user's desktop, not the command line.
-gsettings set org.gnome.desktop.background picture-uri file://$wallpaper_path$wallpaper_name
+gsettings set org.gnome.desktop.background picture-uri file://$wallpaper_path/$wallpaper_name
 ###FILE_END

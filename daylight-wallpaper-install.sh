@@ -1,5 +1,5 @@
 #!/bin/bash
-# File   : install-automatic-wallpaper.sh
+# File   : daylight-wallpaper-install.sh
 # Purpose: This file creates a script that downloads an image and sets it as wallpaper.
 #          This file also installs that script as a crontab for the current user.
 # Created: 2015-02-26
@@ -9,7 +9,7 @@
 ###
 #INIT
 scriptpath=~/
-scriptname=update-wallpaper.sh
+scriptname=daylight-wallpaper-updater.sh
 
 # Auto-detect the line numbers of FILE_BEGIN and FILE_END.
 FILE_BEGIN=$(grep -n -m 12 "#!/bin/bash" "$0"| tail -1 | awk -F: '{print $1}')
@@ -48,7 +48,7 @@ exit
 
 ###FILE_BEGIN
 #!/bin/bash
-# File   : update-wallpaper.sh
+# File   : daylight-wallpaper-updater.sh
 # Purpose: This file downloads an image and sets it as wallpaper.
 # Created: 2015-02-26
 # Author : torben@g-b.dk

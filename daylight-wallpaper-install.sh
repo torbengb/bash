@@ -6,6 +6,12 @@
 # Author : torben@g-b.dk
 # License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
 
+# Note: It's been suggested to use the 'xplanet' package instead of downloading the images:
+# xplanet -body earth -num_times 1 -projection mercator -output $wallpaper_name -geometry 1366x768
+# http://askubuntu.com/a/590950/5786
+# It's an impressive package and it produces nice images but the nighttime area seems 
+# wrong - too bright and missing city lights. For that, the Opentopia images win.
+
 ###
 #INIT
 scriptpath=${HOME}
@@ -65,6 +71,8 @@ cd $wallpaper_path
 #date > $wallpaper_path/$wallpaperlog
 rm $wallpaper_path/$wallpaper_name # I ought to find the wget switch that allows overwriting of the existing file.
 wget $wget_options -O $wallpaper_name $wallpaper_wget_url 
+# remove the old cached wallpaper image:
+rm ${HOME}/.cache/wallpaper/*
 # set file as wallpaper:
 export DISPLAY=:0        # we must target the user's desktop, not the command line.
 gsettings set org.gnome.desktop.background picture-uri file://$wallpaper_path/$wallpaper_name

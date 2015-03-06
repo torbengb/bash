@@ -8,9 +8,12 @@ Unless otherwise noted, my code is made available under the Creative Commons lic
 I welcome any and all feedback, especially criticism, especially in a civil tone. Thanks for reading!
 
 ## Contents
------
+
 ### daylight-wallpaper-install.sh	
 This file creates a script that downloads an image and sets it as wallpaper. It also installs that script as a crontab for the current user.
 #### Installation
 This command will download and run the installer:
 - curl -s "https://raw.githubusercontent.com/torbengb/bash/master/daylight-wallpaper-install.sh" | bash
+
+-----
+

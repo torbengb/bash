@@ -14,6 +14,6 @@ This file creates a script that downloads an image and sets it as wallpaper. It 
 #### Installation
 This command will download and run the installer:
 - curl -s "https://raw.githubusercontent.com/torbengb/bash/master/daylight-wallpaper-install.sh" | bash
-
+- but this doesn't actually work yet.... Instead, download the file manually and run it.
 -----
 
